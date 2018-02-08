@@ -30,9 +30,21 @@ class User_choice:
     
     def display_food_name(self):
         "function that displays the product by category"
-        rows_food = self.db.query("SELECT id, food_name FROM food WHERE (category_id =: x))", x = self.choice_category)
+        id_included = []
+        rows_food = self.db.query("SELECT id, food_name FROM food WHERE category_id ={choice}".format(choice = self.choice_category))
         for product in rows_food:
             print(product.id, product.food_name)
+            id_included.append(product.id)
+        choice_food = input ("Sélectionnez numéro de l'aliment à substituer")
+        choice_food = int(choice_food)
+        if choice_food in id_included:
+            print("ok")
+        else:
+            while choice_food not in id_included:
+                choice_food = input("Sélectionnez numéro de l'aliment à substituer") 
+                choice_food = int(choice_food)
+                if choice_food in id_included:
+                    break
 
 def main():
     user_choice = User_choice()
