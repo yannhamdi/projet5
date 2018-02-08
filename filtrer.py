@@ -56,11 +56,6 @@ class Data_Creating:
 def main():
     data_create = Data_Creating()
     data_create.create_data_base()
-    choice = input("1-Quels aliments souhaitez-vous remplacer\n2- Retrouver vos aliments substitués")
-    int(choice)
-    if choice == 1:
-        rows = create_data_base.db.query("SELECT * FROM categorie")
-        for r in rows:
-            print(r.id, r.cat)
+    
     
 main()
