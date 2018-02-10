@@ -32,7 +32,7 @@ class User_choice(Data_base):
         "displays the first introdution to the program"
         while True:
             try:
-                self.choice = int(input("alors"))
+                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués"))
                 if self.checking_choice(self.choice, self.id_first_choice) == 1:
                     break
             except:
@@ -43,8 +43,14 @@ class User_choice(Data_base):
         if choice == 1:
             for r in self.rows:
                 print(r.id, r.cat)
+        while True:
+            try:
+                self.second = int(input("Sélectionnez une catégorie"))
+                if self.checking_choice(self.second, self.id_category) == 1:
+                    break
+            except:
+                True
 
-            	
 
    
 
