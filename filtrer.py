@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 
+"Module that filters the csv file openfood and fill up the databse"
 
 
 import pandas as pd
@@ -9,12 +10,14 @@ import pandas as pd
 import records
 
 
+from database import *
 
 
-class Data_Creating:
+class Data_Creating(Data_base):
     "class that filters the csv file and only takes what we need"
     def __init__(self):
         "we initialize our file which is going to be usefull for our database"
+        Data_base.__init__(self)
         # I create a list of the columns needed for my database
         self.my_columns = ["code", "url", "product_name", "stores", "nutrition_grade_fr", "main_category_fr"]
         # We open our csv file
@@ -33,7 +36,7 @@ class Data_Creating:
     def create_data_base(self):
         "we filling up our database"
         id_category = 0
-        self.db = records.Database('mysql+pymysql://root:yh250980@localhost/openfood?charset=utf8mb4')
+        self.db.query("DELETE FROM food")
         file_data = pd.read_csv("myFile.csv", sep = "\t", low_memory = False)
         for index, row in file_data.iterrows():
             if row["main_category_fr"] == "Jus de fruits":
@@ -49,8 +52,7 @@ class Data_Creating:
             elif row["main_category_fr"] == "Plats préparés":
                 id_category = 6
             self.db.query("""INSERT INTO food(id_openfood, food_link, food_name, store, nutrition_grade , category_id) VALUES(:id_openfood, :food_link, :food_name, :store, :nutrition_grade, :category_id)""",
-             id_openfood = row["code"], food_link = row["url"], food_name = row["product_name"], store = row["stores"], nutrition_grade = row["nutrition_grade_fr"], category_id = id_category)     
-    
+            id_openfood = row["code"], food_link = row["url"], food_name = row["product_name"], store = row["stores"], nutrition_grade = row["nutrition_grade_fr"], category_id = id_category)    
     
 
 def main():
