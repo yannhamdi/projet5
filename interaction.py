@@ -9,6 +9,7 @@ from database import *
 class User_choice(Data_base):
     "CLass that interacts with the user"
     def __init__(self):
+        Data_base.__init__(self)
         " constructor that create the list to double check the user choice"
         self.id_category = []
         self.id_included =[]
@@ -40,7 +41,7 @@ class User_choice(Data_base):
     def second_choice(self, choice):
         "second degree display choice"
         if choice == 1:
-            for r in Data_base.rows:
+            for r in self.rows:
                 print(r.id, r.cat)
 
             	
