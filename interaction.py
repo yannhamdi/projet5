@@ -55,10 +55,10 @@ class User_choice(Data_base):
                 True
         self.third_choice(self.second)
 
-    def third_choice(self, third_choice):
+    def third_choice(self, second_choice):
         "third degree choice, the user chooses the food to substitute"
         #we call up a method to print out the list of food 
-        self.query(third_choice)
+        self.query(second_choice)
         #loop for the user choice until he gives a correct number
         while True:
             # we manage exception in case the user gives a letter for instance
@@ -68,9 +68,16 @@ class User_choice(Data_base):
                     break
             except:
                 True
-        self.better_food(self.choice_to_substitute)
+        self.better_food(self.second, self.choice_to_substitute)
 
-   
+    
+    def saving_substitution(self):
+        "function that save the user selection"
+        wishe = (input("Souhaitez vous enregistrer votre recherche?"))
+        if whishe == "oui":
+            self.saving_in_database(self.choice_to_substitute)
+        else:
+            pass
 
 
 def main():
