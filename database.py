@@ -5,7 +5,11 @@
 
 import records
 
-class Data_base:
+from food_queries import *
+
+
+
+class Data_base(Food_queries):
     def __init__(self):
         "connection to our database openfood"
         self.db = records.Database('mysql+pymysql://root:yh250980@localhost/openfood?charset=utf8mb4')
@@ -17,8 +21,3 @@ class Data_base:
         "function that shows the different category"
         self.rows = self.db.query("SELECT * FROM categorie")
         
-
-
-
-if __name__ == '__main__':
-    main()

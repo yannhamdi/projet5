@@ -5,11 +5,14 @@ import records
 
 from database import *
 
+from food_queries import *
+
 
 class User_choice(Data_base):
     "CLass that interacts with the user"
     def __init__(self):
         Data_base.__init__(self)
+        Food_queries.__init__(self)
         " constructor that create the list to double check the user choice"
         self.id_category = []
         self.id_included =[]
@@ -24,16 +27,16 @@ class User_choice(Data_base):
     def checking_choice(self, choice, liste):
         "function that checks the user choice"
         if choice in liste:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     def first_choice(self):
         "displays the first introdution to the program"
         while True:
             try:
                 self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués"))
-                if self.checking_choice(self.choice, self.id_first_choice) == 1:
+                if self.checking_choice(self.choice, self.id_first_choice) == True:
                     break
             except:
                 True
@@ -46,11 +49,26 @@ class User_choice(Data_base):
         while True:
             try:
                 self.second = int(input("Sélectionnez une catégorie"))
-                if self.checking_choice(self.second, self.id_category) == 1:
+                if self.checking_choice(self.second, self.id_category) == True:
                     break
             except:
                 True
+        self.third_choice(self.second)
 
+    def third_choice(self, third_choice):
+        "third degree choice, the user chooses the food to substitute"
+        #we call up a method to print out the list of food 
+        self.query(third_choice)
+        #loop for the user choice until he gives a correct number
+        while True:
+            # we manage exception in case the user gives a letter for instance
+            try:
+                self.choice_to_substitute = int(input("Sélectionnez l'aliment à substituer"))
+                if self.checking_choice(self.choice_to_substitute, self.id_included) == True:
+                    break
+            except:
+                True
+        self.better_food(self.choice_to_substitute)
 
    
 
