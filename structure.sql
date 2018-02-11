@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: openfood
 -- ------------------------------------------------------
--- Server version	5.7.20
+-- Server version 5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,13 +24,13 @@ DROP TABLE IF EXISTS `User_search`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User_search` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `id_to_substitue` mediumint(8) unsigned NOT NULL,
-  `id_substitued` mediumint(8) unsigned NOT NULL,
+  `id_to_substitue` bigint(20) unsigned NOT NULL,
+  `id_substitued` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_to_substitue` (`id_to_substitue`),
   KEY `fk_id_substitued` (`id_substitued`),
-  CONSTRAINT `fk_id_substitued` FOREIGN KEY (`id_substitued`) REFERENCES `food` (`id`),
-  CONSTRAINT `fk_id_to_substitue` FOREIGN KEY (`id_to_substitue`) REFERENCES `food` (`id`)
+  CONSTRAINT `fk_id_substitued` FOREIGN KEY (`id_substitued`) REFERENCES `food` (`id_openfood`),
+  CONSTRAINT `fk_id_to_substitue` FOREIGN KEY (`id_to_substitue`) REFERENCES `food` (`id_openfood`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,5 +86,8 @@ CREATE TABLE `food` (
   UNIQUE KEY `ind_idopen_name` (`id_openfood`),
   KEY `fk_food_categoie_id` (`category_id`),
   CONSTRAINT `fk_food_categoie_id` FOREIGN KEY (`category_id`) REFERENCES `categorie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=128386 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=131429 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `food`
