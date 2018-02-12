@@ -120,12 +120,12 @@ class User_choice(Data_base):
         print("Son nutrition grade:", data["product"]["nutrition_grades"])
         print ("Url du produit https://fr.openfoodfacts.org/produit/" + str(code))
         self.saving_substitution()
-def main():
-    user_choice = User_choice()
-    user_choice.first_choice()
-main()
 
 
+
+
+if __name__ == '__main__':
+    main()
 
 
 
