@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `User_search`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User_search` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `id_to_substitue` bigint(20) unsigned NOT NULL,
-  `id_substitued` bigint(20) unsigned NOT NULL,
+  `id_to_substitue` bigint(30) unsigned NOT NULL,
+  `id_substitued` bigint(30) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_to_substitue` (`id_to_substitue`),
   KEY `fk_id_substitued` (`id_substitued`),
@@ -108,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-11 17:16:48
+-- Dump completed on 2018-02-12 14:01:23

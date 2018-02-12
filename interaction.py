@@ -20,9 +20,9 @@ class User_choice(Data_base):
         self.row_category = self.db.query("SELECT id FROM categorie")
         for categ in self.row_category:
             self.id_category.append(categ.id)
-        self.row_name = self.db.query("SELECT id FROM food")
+        self.row_name = self.db.query("SELECT id_openfood FROM food")
         for nam in self.row_name:
-            self.id_included.append(nam.id)
+            self.id_included.append(nam.id_openfood)
     
     def checking_choice(self, choice, liste):
         "function that checks the user choice"
@@ -70,12 +70,23 @@ class User_choice(Data_base):
                 True
         self.better_food(self.second, self.choice_to_substitute)
 
-    
+    def substitution_choice(self,listsub):
+        "function that allows the user to choose between ten products of substitution"
+        while True:
+            try:
+                self.sub_choice = int(input("Veuillez choisir le produit que vous désirez comme produit de substitution"))
+                if self.checking_choice(self.sub_choice, listsub) == True:
+                    break
+            except:
+                True
+        self.saving_substitution()
+
     def saving_substitution(self):
         "function that save the user selection"
-        wishe = (input("Souhaitez vous enregistrer votre recherche?"))
-        if whishe == "oui":
-            self.saving_in_database(self.choice_to_substitute)
+        wishe = "non"
+        wishe = str(input("Souhaitez vous enregistrer votre recherche?"))
+        if wishe == "oui":
+            self.saving_in_database(self.choice_to_substitute, self.sub_choice)
         else:
             pass
 

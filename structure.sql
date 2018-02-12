@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `User_search`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User_search` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `id_to_substitue` bigint(20) unsigned NOT NULL,
-  `id_substitued` bigint(20) unsigned NOT NULL,
+  `id_to_substitue` bigint(30) unsigned NOT NULL,
+  `id_substitued` bigint(30) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_to_substitue` (`id_to_substitue`),
   KEY `fk_id_substitued` (`id_substitued`),
