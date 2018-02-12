@@ -7,6 +7,10 @@ from database import *
 
 from food_queries import *
 
+import requests
+
+import json 
+
 
 class User_choice(Data_base):
     "CLass that interacts with the user"
@@ -23,6 +27,7 @@ class User_choice(Data_base):
         self.row_name = self.db.query("SELECT id_openfood FROM food")
         for nam in self.row_name:
             self.id_included.append(nam.id_openfood)
+
     
     def checking_choice(self, choice, liste):
         "function that checks the user choice"
@@ -40,7 +45,10 @@ class User_choice(Data_base):
                     break
             except:
                 True
-        self.second_choice(self.choice)
+        if self.choice == 1:
+            self.second_choice(self.choice)
+        elif self.choice == 2:
+            self.search_display()
     def second_choice(self, choice):
         "second degree display choice"
         if choice == 1:
@@ -54,7 +62,6 @@ class User_choice(Data_base):
             except:
                 True
         self.third_choice(self.second)
-
     def third_choice(self, second_choice):
         "third degree choice, the user chooses the food to substitute"
         #we call up a method to print out the list of food 
@@ -79,18 +86,40 @@ class User_choice(Data_base):
                     break
             except:
                 True
-        self.saving_substitution()
+        self.display_product(self.sub_choice)
 
     def saving_substitution(self):
         "function that save the user selection"
-        wishe = "non"
-        wishe = str(input("Souhaitez vous enregistrer votre recherche?"))
-        if wishe == "oui":
-            self.saving_in_database(self.choice_to_substitute, self.sub_choice)
-        else:
-            pass
+        while True:
+            wishe = input("Souhaitez vous enregistrer votre recherche?")
+            if wishe == "oui":
+                self.saving_in_database(self.choice_to_substitute, self.sub_choice)
+                break
+            elif wishe == "non":
+                print("Merci!Pour votre recherche")
+                break
+    
+    def deleting_search_data(self):
+        "function that allows the user to delete his database search"
+        while True:
+            del_data = input("Souhaitez vous effacer votre base de données")
+            if del_data == "non":
+                print("Merci de votre visite")
+                break
+            elif del_data == "oui":
+                self.deleting_data(self)
 
-
+    
+    def display_product(self,code):
+        "function that shows the product details"
+        api_adress = "https://FR.openfoodfacts.org/api/v0/product/" + str(code) + ".json"
+        r=requests.get(api_adress)
+        data = r.json()
+        print("Nom de l'aliment:", data["product"]["product_name"])
+        print("Lieu où l'acheter:",data["product"]["stores"])
+        print("Son nutrition grade:", data["product"]["nutrition_grades"])
+        print ("Url du produit https://fr.openfoodfacts.org/produit/" + str(code))
+        self.saving_substitution()
 def main():
     user_choice = User_choice()
     user_choice.first_choice()
