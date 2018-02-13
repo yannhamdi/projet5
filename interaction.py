@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: Utf-8 -*
 
+" module that interacts with the user"
+
+import json
+
 import records
 
 from database import *
@@ -9,18 +13,18 @@ from food_queries import *
 
 import requests
 
-import json 
-
 
 class User_choice(Data_base):
     "CLass that interacts with the user"
     def __init__(self):
+        # we initialize the class data_base by calling his constructor
         Data_base.__init__(self)
+        # we initialise the class food_queries by calling his constructor
         Food_queries.__init__(self)
         " constructor that create the list to double check the user choice"
         self.id_category = []
-        self.id_included =[]
-        self.id_first_choice = [1,2]
+        self.id_included = []
+        self.id_first_choice = [1, 2]
         self.row_category = self.db.query("SELECT id FROM categorie")
         for categ in self.row_category:
             self.id_category.append(categ.id)
@@ -28,7 +32,7 @@ class User_choice(Data_base):
         for nam in self.row_name:
             self.id_included.append(nam.id_openfood)
 
-    
+
     def checking_choice(self, choice, liste):
         "function that checks the user choice"
         if choice in liste:
@@ -40,7 +44,8 @@ class User_choice(Data_base):
         "displays the first introdution to the program"
         while True:
             try:
-                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués"))
+                self.choice = int(input("""1 - Sélectionnez un aliment à substituer
+                    \n2 - Retrouvez mes aliments substitués"""))
                 if self.checking_choice(self.choice, self.id_first_choice) == True:
                     break
             except:
@@ -64,7 +69,7 @@ class User_choice(Data_base):
         self.third_choice(self.second)
     def third_choice(self, second_choice):
         "third degree choice, the user chooses the food to substitute"
-        #we call up a method to print out the list of food 
+        #we call up a method to print out the list of food
         self.query(second_choice)
         #loop for the user choice until he gives a correct number
         while True:
@@ -77,11 +82,12 @@ class User_choice(Data_base):
                 True
         self.better_food(self.second, self.choice_to_substitute)
 
-    def substitution_choice(self,listsub):
+    def substitution_choice(self, listsub):
         "function that allows the user to choose between ten products of substitution"
         while True:
             try:
-                self.sub_choice = int(input("Veuillez choisir le produit que vous désirez comme produit de substitution"))
+                self.sub_choice = int(input("""Veuillez choisir le produit
+                    que vous désirez comme produit de substitution"""))
                 if self.checking_choice(self.sub_choice, listsub) == True:
                     break
             except:
@@ -98,7 +104,7 @@ class User_choice(Data_base):
             elif wishe == "non":
                 print("Merci!Pour votre recherche")
                 break
-    
+
     def deleting_search_data(self):
         "function that allows the user to delete his database search"
         while True:
@@ -109,16 +115,16 @@ class User_choice(Data_base):
             elif del_data == "oui":
                 self.deleting_data(self)
 
-    
-    def display_product(self,code):
+
+    def display_product(self, code):
         "function that shows the product details"
         api_adress = "https://FR.openfoodfacts.org/api/v0/product/" + str(code) + ".json"
-        r=requests.get(api_adress)
+        r = requests.get(api_adress)
         data = r.json()
         print("Nom de l'aliment:", data["product"]["product_name"])
-        print("Lieu où l'acheter:",data["product"]["stores"])
+        print("Lieu où l'acheter:", data["product"]["stores"])
         print("Son nutrition grade:", data["product"]["nutrition_grades"])
-        print ("Url du produit https://fr.openfoodfacts.org/produit/" + str(code))
+        print("Url du produit https://fr.openfoodfacts.org/produit/" + str(code))
         self.saving_substitution()
 
 
@@ -126,6 +132,3 @@ class User_choice(Data_base):
 
 if __name__ == '__main__':
     main()
-
-
-
