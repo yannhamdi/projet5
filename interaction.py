@@ -44,8 +44,7 @@ class User_choice(Data_base):
         "displays the first introdution to the program"
         while True:
             try:
-                self.choice = int(input("""1 - Sélectionnez un aliment à substituer
-                    \n2 - Retrouvez mes aliments substitués"""))
+                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués"))
                 if self.checking_choice(self.choice, self.id_first_choice) == True:
                     break
             except:
