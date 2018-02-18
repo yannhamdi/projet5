@@ -7,11 +7,12 @@ import json
 
 import records
 
-from database import *
 
 from food_queries import *
 
 import requests
+
+import sys 
 
 
 class User_choice():
@@ -44,7 +45,7 @@ class User_choice():
         "displays the first introdution to the program"
         while True:
             try:
-                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 -Retrouvez mes aliments substitués"))
+                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 -Retrouvez mes aliments substitués "))
                 if self.checking_choice(self.choice, self.id_first_choice) == True:
                     break
             except:
@@ -80,6 +81,16 @@ class User_choice():
             except:
                 True
         self.better_food(self.second, self.choice_to_substitute)
+    
+
+    def better_food(self, choice_category, food_to_substitute):
+        "query to substitute the food choosen"
+        self.liste_sub = []
+        self.food_replacing = self.data_base.db.query("SELECT * FROM food WHERE category_id = {choice} AND nutrition_grade <= (SELECT nutrition_grade FROM food WHERE id_openfood ={grade}) ORDER BY nutrition_grade LIMIT 5".format(choice=choice_category, grade=food_to_substitute))
+        for self.answer in self.food_replacing:
+            self.liste_sub.append(self.answer.id_openfood)
+            print(self.answer.id_openfood, self.answer.food_name, self.answer.nutrition_grade)
+        self.substitution_choice(self.liste_sub)
 
     def substitution_choice(self, listsub):
         "function that allows the user to choose between ten products of substitution"
@@ -97,11 +108,22 @@ class User_choice():
         while True:
             wishe = input("Souhaitez vous enregistrer votre recherche?")
             if wishe == "oui":
-                self.saving_in_database(self.choice_to_substitute, self.sub_choice)
+                self.food_queries.saving_in_database(self.choice_to_substitute, self.sub_choice)
                 break
             elif wishe == "non":
                 print("Merci!Pour votre recherche")
                 break
+
+    def search_display(self):
+        "function that displays the user search"
+        self.display_search = self.data_base.db.query("SELECT food_substitue.food_name AS to_substitue , User_search.id_to_substitue AS id_substitued ,food_substitued.*, User_search.id_substitued FROM User_search INNER JOIN food AS food_substitue ON food_substitue.id_openfood=User_search.id_to_substitue INNER JOIN food as food_substitued ON food_substitued.id_openfood=User_search.id_substitued")
+        for display in self.display_search:
+            print(display)
+        if ("SELECT COUNT(*) FROM User_search") == 0:
+            self.deleting_search_data()
+        else:
+            print("Votre base de données est vide")
+            sys.exit()
 
     def deleting_search_data(self):
         "function that allows the user to delete his database search"
@@ -111,7 +133,16 @@ class User_choice():
                 print("Merci de votre visite")
                 break
             elif del_data == "oui":
-                self.deleting_data(self)
+                self.deleting_data()
+    
+
+    
+
+    def deleting_data(self):
+        "function that deletes the database"
+        self.deleting = self.data_base.db.query("DELETE FROM User_search")
+        print("Votre base de données a été effacée")
+        sys.exit()
 
 
     def display_product(self, code):
