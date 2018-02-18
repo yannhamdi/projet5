@@ -9,7 +9,7 @@ from food_queries import *
 
 
 
-class Data_base(Food_queries):
+class Data_base():
     def __init__(self):
         "connection to our database openfood"
         self.db = records.Database('mysql+pymysql://root:yh250980@localhost/openfood?charset=utf8mb4')
@@ -35,3 +35,8 @@ class Data_base(Food_queries):
         self.deleting = self.db.query("DELETE FROM User_search")
         print("Votre base de données a été effacée")
          
+
+
+
+if __name__ == '__main__':
+    main()
