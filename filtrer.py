@@ -11,11 +11,11 @@ import records
 from database import *
 
 
-class Data_Creating(Data_base):
+class Data_Creating():
     "class that filters the csv file and only takes what we need"
     def __init__(self):
         "we initialize our file which is going to be usefull for our database"
-        Data_base.__init__(self)
+        self.data_base = Data_base()
         # I create a list of the columns needed for my database
         self.my_columns = ["code", "url", "product_name", "stores",
                            "nutrition_grade_fr", "main_category_fr"]
@@ -38,7 +38,7 @@ class Data_Creating(Data_base):
     def create_data_base(self):
         "we filling up our database"
         id_category = 0
-        self.db.query("DELETE FROM food")
+        self.data_base.db.query("DELETE FROM food")
         file_data = pd.read_csv("myFile.csv", sep="\t", low_memory=False)
         for index, row in file_data.iterrows():
             if row["main_category_fr"] == "Jus de fruits":
@@ -53,7 +53,7 @@ class Data_Creating(Data_base):
                 id_category = 5
             elif row["main_category_fr"] == "Plats préparés":
                 id_category = 6
-            self.db.query("""INSERT INTO
+            self.data_base.db.query("""INSERT INTO
                     food(id_openfood, food_link, food_name, store, nutrition_grade , category_id) 
                           VALUES(:id_openfood, :food_link, :food_name, :store, :nutrition_grade, 
                           :category_id)""",
