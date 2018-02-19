@@ -3,6 +3,8 @@
 
 "module that manages the database"
 
+from settings import *
+
 import records
 
 from food_queries import *
@@ -12,7 +14,8 @@ from food_queries import *
 class Data_base():
     def __init__(self):
         "connection to our database openfood"
-        self.db = records.Database('mysql+pymysql://root:yh250980@localhost/openfood?charset=utf8mb4')
+        data_code = ("mysql+pymysql://" + str(login)+ ":" + str(password) + "@localhost/openfood?charset=utf8mb4")
+        self.db = records.Database(data_code)
         self.category_display()
 
 
