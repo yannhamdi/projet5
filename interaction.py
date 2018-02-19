@@ -45,7 +45,7 @@ class User_choice():
         "displays the first introdution to the program"
         while True:
             try:
-                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 -Retrouvez mes aliments substitués "))
+                self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués "))
                 if self.checking_choice(self.choice, self.id_first_choice) == True:
                     break
             except:
@@ -61,7 +61,7 @@ class User_choice():
                 print(r.id, r.cat)
         while True:
             try:
-                self.second = int(input("Sélectionnez une catégorie"))
+                self.second = int(input("Sélectionnez une catégorie "))
                 if self.checking_choice(self.second, self.id_category) == True:
                     break
             except:
@@ -75,7 +75,7 @@ class User_choice():
         while True:
             # we manage exception in case the user gives a letter for instance
             try:
-                self.choice_to_substitute = int(input("Sélectionnez l'aliment à substituer"))
+                self.choice_to_substitute = int(input("Sélectionnez l'aliment à substituer "))
                 if self.checking_choice(self.choice_to_substitute, self.id_included) == True:
                     break
             except:
@@ -96,7 +96,7 @@ class User_choice():
         "function that allows the user to choose between ten products of substitution"
         while True:
             try:
-                self.sub_choice = int(input("Veuillez choisir le produit que vous désirez comme produit de substitution"))
+                self.sub_choice = int(input("Veuillez choisir le produit que vous désirez comme produit de substitution "))
                 if self.checking_choice(self.sub_choice, listsub) == True:
                     break
             except:
@@ -106,7 +106,7 @@ class User_choice():
     def saving_substitution(self):
         "function that save the user selection"
         while True:
-            wishe = input("Souhaitez vous enregistrer votre recherche?")
+            wishe = input("Souhaitez vous enregistrer votre recherche? ")
             if wishe == "oui":
                 self.food_queries.saving_in_database(self.choice_to_substitute, self.sub_choice)
                 break
@@ -128,7 +128,7 @@ class User_choice():
     def deleting_search_data(self):
         "function that allows the user to delete his database search"
         while True:
-            del_data = input("Souhaitez vous effacer votre base de données")
+            del_data = input("Souhaitez vous effacer votre base de données ")
             if del_data == "non":
                 print("Merci de votre visite")
                 break
