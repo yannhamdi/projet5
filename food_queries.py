@@ -9,11 +9,11 @@ from database import *
 from interaction import *
 
 
-class Food_queries():
+class Foodqueries():
     "class that manages queries of products"
     def __init__(self):
         "we initialize our class Food_queries"
-        self.data_base = Data_base()
+        self.data_base = Database()
         self.info_food = self.data_base.db.query("SELECT * FROM food")
 
 

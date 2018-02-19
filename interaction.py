@@ -5,24 +5,26 @@
 
 import json
 
-import records
+import sys
 
+import records
 
 from food_queries import *
 
 import requests
 
-import sys 
 
 
-class User_choice():
+
+class Userchoice():
     "CLass that interacts with the user"
     def __init__(self):
         " constructor that create the list to double check the user choice"
         # we initialize the class data_base by calling his constructor
-        self.data_base = Data_base()
+        self.data_base = Database()
         # we initialise the class food_queries by calling his constructor
-        self.food_queries = Food_queries()
+        self.food_queries = Foodqueries()
+        # we create list in order tu use them after in our loop for the user interaction
         self.id_category = []
         self.id_included = []
         self.id_first_choice = [1, 2]
@@ -32,7 +34,7 @@ class User_choice():
         self.row_name = self.data_base.db.query("SELECT id_openfood FROM food")
         for nam in self.row_name:
             self.id_included.append(nam.id_openfood)
-  
+
 
     def checking_choice(self, choice, liste):
         "function that checks the user choice"
@@ -46,7 +48,7 @@ class User_choice():
         while True:
             try:
                 self.choice = int(input("1 - Sélectionnez un aliment à substituer \n2 - Retrouvez mes aliments substitués "))
-                if self.checking_choice(self.choice, self.id_first_choice) == True:
+                if self.checking_choice(self.choice, self.id_first_choice) is True:
                     break
             except:
                 True
@@ -62,7 +64,7 @@ class User_choice():
         while True:
             try:
                 self.second = int(input("Sélectionnez une catégorie "))
-                if self.checking_choice(self.second, self.id_category) == True:
+                if self.checking_choice(self.second, self.id_category) is True:
                     break
             except:
                 True
@@ -76,12 +78,12 @@ class User_choice():
             # we manage exception in case the user gives a letter for instance
             try:
                 self.choice_to_substitute = int(input("Sélectionnez l'aliment à substituer "))
-                if self.checking_choice(self.choice_to_substitute, self.id_included) == True:
+                if self.checking_choice(self.choice_to_substitute, self.id_included) is True:
                     break
             except:
                 True
         self.better_food(self.second, self.choice_to_substitute)
-    
+
 
     def better_food(self, choice_category, food_to_substitute):
         "query to substitute the food choosen"
@@ -97,7 +99,7 @@ class User_choice():
         while True:
             try:
                 self.sub_choice = int(input("Veuillez choisir le produit que vous désirez comme produit de substitution "))
-                if self.checking_choice(self.sub_choice, listsub) == True:
+                if self.checking_choice(self.sub_choice, listsub) is True:
                     break
             except:
                 True
@@ -134,9 +136,9 @@ class User_choice():
                 break
             elif del_data == "oui":
                 self.deleting_data()
-    
 
-    
+
+
 
     def deleting_data(self):
         "function that deletes the database"

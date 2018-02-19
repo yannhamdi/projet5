@@ -9,9 +9,6 @@ from interaction import *
 
 def main():
     "function that instances the User_choice class"
-    user_choice = User_choice()
+    user_choice = Userchoice()
     user_choice.first_choice()
 main()
-
-
-

@@ -11,11 +11,11 @@ import records
 from database import *
 
 
-class Data_Creating():
+class DataCreating():
     "class that filters the csv file and only takes what we need"
     def __init__(self):
         "we initialize our file which is going to be usefull for our database"
-        self.data_base = Data_base()
+        self.data_base = Database()
         # I create a list of the columns needed for my database
         self.my_columns = ["code", "url", "product_name", "stores",
                            "nutrition_grade_fr", "main_category_fr"]
@@ -57,13 +57,13 @@ class Data_Creating():
                     food(id_openfood, food_link, food_name, store, nutrition_grade , category_id) 
                           VALUES(:id_openfood, :food_link, :food_name, :store, :nutrition_grade, 
                           :category_id)""",
-                          id_openfood=row["code"], food_link=row["url"],
-                          food_name=row["product_name"], store=row["stores"],
-                          nutrition_grade=row["nutrition_grade_fr"], category_id=id_category)
+                                    id_openfood=row["code"], food_link=row["url"],
+                                    food_name=row["product_name"], store=row["stores"],
+                                    nutrition_grade=row["nutrition_grade_fr"], category_id=id_category)
 
 
 def main():
     "main function that insrances the object of the class Data_Creating"
-    data_create = Data_Creating()
+    data_create = DataCreating()
     data_create.create_data_base()
 main()
