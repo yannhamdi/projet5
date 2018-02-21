@@ -4,7 +4,7 @@
 "function main which will launche our application"
 
 
-from interaction import *
+from interaction import Userchoice
 
 
 def main():

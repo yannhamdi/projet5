@@ -57,8 +57,10 @@ class Userchoice():
             self.search_display()
     def second_choice(self, choice):
         "second degree display choice"
+        # the user choice to find a substitution product
         if choice == 1:
             for r in self.data_base.rows:
+                # we print out at the screen the different categories
                 print(r.id, r.cat)
         while True:
             try:
@@ -120,11 +122,12 @@ class Userchoice():
         self.display_search = self.data_base.db.query("SELECT food_substitue.food_name AS to_substitue , User_search.id_to_substitue AS id_substitued ,food_substitued.*, User_search.id_substitued FROM User_search INNER JOIN food AS food_substitue ON food_substitue.id_openfood=User_search.id_to_substitue INNER JOIN food as food_substitued ON food_substitued.id_openfood=User_search.id_substitued")
         for display in self.display_search:
             print(display)
-        if ("SELECT COUNT(*) FROM User_search") == 0:
-            self.deleting_search_data()
-        else:
+        if len(self.display_search) == 0:
             print("Votre base de données est vide")
             sys.exit()
+        else:
+            self.deleting_search_data()
+            
 
     def deleting_search_data(self):
         "function that allows the user to delete his database search"
