@@ -8,7 +8,7 @@ import pandas as pd
 
 import records
 
-from database import *
+from database import Database
 
 
 class DataCreating():
@@ -63,7 +63,10 @@ class DataCreating():
 
 
 def main():
-    "main function that insrances the object of the class Data_Creating"
+    "main function that instances the object of the class Data_Creating"
     data_create = DataCreating()
     data_create.create_data_base()
-main()
+if __name__ == '__main__':
+    main()
+
+

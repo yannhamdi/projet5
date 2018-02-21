@@ -3,7 +3,8 @@
 
 "module that manages the database"
 
-from settings import *
+from settings import login
+from settings import password
 
 import records
 
@@ -11,7 +12,7 @@ from food_queries import *
 
 
 class Database():
-    "class that connects to the database mysql"
+    """class that connects to the database mysql."""
     def __init__(self):
         "connection to our database openfood"
         data_code = ("mysql+pymysql://" + str(login)+ ":" + str(password) + "@localhost/openfood?charset=utf8mb4")
@@ -21,7 +22,7 @@ class Database():
 
 
     def category_display(self):
-        "function that shows the different category"
+        """function that shows the different category"""
         self.rows = self.db.query("SELECT * FROM categorie")
 
 

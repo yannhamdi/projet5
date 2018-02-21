@@ -9,10 +9,9 @@ import sys
 
 import records
 
-from food_queries import *
-
 import requests
 
+from food_queries import *
 
 
 

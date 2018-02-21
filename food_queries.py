@@ -28,5 +28,3 @@ class Foodqueries():
         self.saving = self.data_base.db.query("INSERT INTO User_search(id_to_substitue, id_substitued) VALUES(:id_to_substitue, :id_substitued)", id_to_substitue=choice_to_substitute, id_substitued=sub_choice)
 
 
-if __name__ == '__main__':
-    main()
