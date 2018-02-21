@@ -5,6 +5,7 @@
 2-Créer l'environnement virtuel en faisant "virtualenv -p python3 env"
 
 3-Activer l'environnement virtuel "source env/bin/activate"
+
 4-installer les modules "pip3 install -r requirements.txt"
 
 5-Ensuite tout d'abord il faut créer la base de données et sa structure pour cela:
