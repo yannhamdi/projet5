@@ -128,7 +128,6 @@ class Userchoice():
         else:
             self.deleting_search_data()
             
-
     def deleting_search_data(self):
         "function that allows the user to delete his database search"
         while True:
@@ -138,9 +137,6 @@ class Userchoice():
                 break
             elif del_data == "oui":
                 self.deleting_data()
-
-
-
 
     def deleting_data(self):
         "function that deletes the database"
@@ -159,8 +155,6 @@ class Userchoice():
         print("Son nutrition grade:", data["product"]["nutrition_grades"])
         print("Url du produit https://fr.openfoodfacts.org/produit/" + str(code))
         self.saving_substitution()
-
-
 
 
 if __name__ == '__main__':
